@@ -11,8 +11,9 @@ A module for MagicMirror² (https://github.com/MichMich/MagicMirror) to prevent 
 		module: "MMM-MagicMover",
 		position: "left",
 		config: {
-			updateInterval: "",		// ResRobot Station ID (or a comma-separated string of IDs)
-			animationSpeed: ""		// ResRobot Station ID of destination (or a comma-separated string of IDs)
+			updateInterval: "",		// Set time for updates in ms  [default: one minute (60 * 1000)]
+			maxMove: "",			// Set max movements in pixels [default: 40]
+			animationSpeed: ""		// Set animation speed in ms   [default: 500]
         }
     },
 ```
