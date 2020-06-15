@@ -11,9 +11,8 @@ A module for MagicMirror² (https://github.com/MichMich/MagicMirror) to prevent 
 		module: "MMM-MagicMover",
 		position: "left",
 		config: {
-			updateInterval: "",		// Set time for updates in ms  [default: one minute (60 * 1000)]
-			maxMove: "",			// Set max movements in pixels [default: 40]
-			animationSpeed: ""		// Set animation speed in ms   [default: 500]
+			updateInterval: 60 * 1000,	// Set time for updates in ms
+			maxMove: 20,			// Set max movements in pixels
         }
     },
 ```
