@@ -1,4 +1,4 @@
-.module {
+.container {
 	transition: 0.5s ease;
 	transform: translate3d(0, 0, 0);
 }
