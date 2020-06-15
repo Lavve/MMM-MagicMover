@@ -6,59 +6,52 @@
  * By Magnus Claesson https://github.com/Lavve
  * MIT Licensed.
  */
- Module.register("MMM-MagicMover",{
+Module.register('MMM-MagicMover', {
+  // Define module defaults
+  defaults: {
+    updateInterval: 60 * 1000,
+    maxMove: 20,
+  },
 
-	// Define module defaults
-	defaults: {
-		updateInterval: 60 * 1000,
-		maxMove: 40,
-		animationSpeed: 500
-	},
+  // Define required styles.
+  getStyles: function () {
+    return ['MMM-MagicMover.css'];
+  },
 
-	// Define required styles.
-	getStyles: function() {
-		return ["MMM-MagicMover.css"];
-	},
+  // Define start sequence.
+  start: function () {
+    Log.info('Starting module: ' + this.name);
+  },
 
-	// Define start sequence.
-	start: function() {
-		Log.info("Starting module: " + this.name);
-	},
+  mover: function () {
+    var that = this;
 
-	mover: function() {
-		var modules = document.getElementsByClassName('modules'),
-		count = modules.length;
+    document.querySelectorAll('.container').forEach((element) => {
+      var thisTimer = that.config.updateInterval + Math.ceil(Math.random() * (10000 - 1) + 1);
 
-		while(count--) {
-			var me = modules[count],
-				thisTimer = this.config.updateInterval * count,
-				coords = this.coords(),
-				moduleTimer;
+      setInterval(function () {
+        var coords = that.randomizer();
+        element.style.transform = 'translate(' + coords.x + 'px,' + coords.y + 'px)';
+      }, thisTimer);
+    });
+  },
 
-			if (moduleTimer[counter]) {
-				clearTimeout(moduleTimer[counter]);
-			}
+  randomizer: function () {
+    var coords = [],
+      min = ~(this.config.maxMove / 2) + 1,
+      max = this.config.maxMove / 2;
 
-			moduleTimer[counter] = setTimeout(function () {
-				me.style.transform = 'translate(' + coords.x + 'px,' + coords.y + 'px)';
-			}, thisTimer);
-		}
-	},
+    coords.x = Math.ceil(Math.random() * (max - min) + min);
+    coords.y = Math.ceil(Math.random() * (max - min) + min);
 
-	randomizer: function () {
-		var coords = [];
+    return coords;
+  },
 
-		coords.x = Math.floor(Math.random() * this.config.maxMove);
-		coords.y = Math.floor(Math.random() * this.config.maxMove);
-
-		return coords;
-	},
-
-	notificationReceived: function(notification, payload, sender) {
-		switch(notification) {
-			case 'DOM_OBJECTS_CREATED':
-			this.mover();
-			break;
-		}
-	}
+  notificationReceived: function (notification, payload, sender) {
+    switch (notification) {
+      case 'DOM_OBJECTS_CREATED':
+        this.mover();
+        break;
+    }
+  },
 });
