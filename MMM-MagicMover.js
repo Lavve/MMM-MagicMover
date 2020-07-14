@@ -50,13 +50,13 @@
   notificationReceived: function (notification, payload, sender) {
     switch (notification) {
       case 'DOM_OBJECTS_CREATED':
-      this.mover();
-      break;
+        this.mover();
+        break;
     }
   },
 
   getDom: function () {
-    var wrapper = document.createElement('div')
+    var wrapper = document.createElement('div');
     return wrapper;
  },
 });
