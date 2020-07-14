@@ -6,7 +6,7 @@
  * By Magnus Claesson https://github.com/Lavve
  * MIT Licensed.
  */
-Module.register('MMM-MagicMover', {
+ Module.register('MMM-MagicMover', {
   // Define module defaults
   defaults: {
     updateInterval: 60 * 1000,
@@ -38,8 +38,8 @@ Module.register('MMM-MagicMover', {
 
   randomizer: function () {
     var coords = [],
-      min = ~(this.config.maxMove / 2) + 1,
-      max = this.config.maxMove / 2;
+    min = ~(this.config.maxMove / 2) + 1,
+    max = this.config.maxMove / 2;
 
     coords.x = Math.ceil(Math.random() * (max - min) + min);
     coords.y = Math.ceil(Math.random() * (max - min) + min);
@@ -50,8 +50,13 @@ Module.register('MMM-MagicMover', {
   notificationReceived: function (notification, payload, sender) {
     switch (notification) {
       case 'DOM_OBJECTS_CREATED':
-        this.mover();
-        break;
+      this.mover();
+      break;
     }
   },
+
+  getDom: function () {
+    var wrapper = document.createElement('div')
+    return wrapper;
+ },
 });
