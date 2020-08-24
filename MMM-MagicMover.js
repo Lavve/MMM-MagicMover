@@ -6,7 +6,7 @@
  * By Magnus Claesson https://github.com/Lavve
  * MIT Licensed.
  */
- Module.register('MMM-MagicMover', {
+Module.register('MMM-MagicMover', {
   // Define module defaults
   defaults: {
     updateInterval: 60 * 1000,
@@ -24,9 +24,13 @@
   },
 
   mover: function () {
-    var that = this;
+    var that = this,
+      selecors =
+        '.region.top.left, .region.top.center, .region.top.right,' +
+        '.region.upper.third, .region.middle.center, .region.lower.third,' +
+        '.region.bottom.left, .region.bottom.center, .region.bottom.right';
 
-    document.querySelectorAll('.container').forEach((element) => {
+    document.querySelectorAll(selecors).forEach((element) => {
       var thisTimer = that.config.updateInterval + Math.ceil(Math.random() * (10000 - 1) + 1);
 
       setInterval(function () {
@@ -38,8 +42,8 @@
 
   randomizer: function () {
     var coords = [],
-    min = ~(this.config.maxMove / 2) + 1,
-    max = this.config.maxMove / 2;
+      min = ~(this.config.maxMove / 2) + 1,
+      max = this.config.maxMove / 2;
 
     coords.x = Math.ceil(Math.random() * (max - min) + min);
     coords.y = Math.ceil(Math.random() * (max - min) + min);
@@ -58,5 +62,5 @@
   getDom: function () {
     var wrapper = document.createElement('div');
     return wrapper;
- },
+  },
 });
