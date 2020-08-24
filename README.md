@@ -8,7 +8,6 @@ A module for MagicMirror² (https://github.com/MichMich/MagicMirror) to prevent 
 ```javascript
 	{
 		module: "MMM-MagicMover",
-		position: "left",
 		config: {
 			updateInterval: 60 * 1000,
 			maxMove: 20,
@@ -18,7 +17,7 @@ A module for MagicMirror² (https://github.com/MichMich/MagicMirror) to prevent 
 ## Configuration options
 | Configuration | Default | Description |
 | ------------- |-------------|-----|
-| updateInterval | `60*1000` | (int) Time in milliseconds for new movement |
+| updateInterval | `60*1000` | (int) Time in milliseconds before next movement |
 | maxMove | `20` | (int) Amount of pixels the container is moved based on default position |
 ## Collaborate
 Pull requests are welcome.
