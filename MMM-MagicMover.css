@@ -1,12 +1,4 @@
-.region.top.left,
-.region.top.center,
-.region.top.right,
-.region.upper.third,
-.region.middle.center,
-.region.lower.third,
-.region.bottom.left,
-.region.bottom.center,
-.region.bottom.right {
+.magic-mover {
   transition: 0.5s ease;
   transform: translate3d(0, 0, 0);
 }

@@ -26,11 +26,13 @@ Module.register('MMM-MagicMover', {
   mover: function () {
     var that = this,
       selecors =
-        '.region.top.left, .region.top.center, .region.top.right,' +
+        '.region.top.bar,' +
         '.region.upper.third, .region.middle.center, .region.lower.third,' +
-        '.region.bottom.left, .region.bottom.center, .region.bottom.right';
+        '.region.bottom.bar';
 
     document.querySelectorAll(selecors).forEach((element) => {
+      element.classList.add('magic-mover');
+
       var thisTimer = that.config.updateInterval + Math.ceil(Math.random() * (10000 - 1) + 1);
 
       setInterval(function () {
@@ -38,6 +40,11 @@ Module.register('MMM-MagicMover', {
         element.style.transform = 'translate(' + coords.x + 'px,' + coords.y + 'px)';
       }, thisTimer);
     });
+  },
+
+  remover: function () {
+    const el = document.querySelector('.magic-mover');
+    el.classList.remove('magic-mover');
   },
 
   randomizer: function () {
@@ -55,6 +62,12 @@ Module.register('MMM-MagicMover', {
     switch (notification) {
       case 'DOM_OBJECTS_CREATED':
         this.mover();
+        break;
+      case 'MAGIC_MOVER_ON':
+        this.mover();
+        break;
+      case 'MAGIC_MOVER_OFF':
+        this.remover();
         break;
     }
   },
