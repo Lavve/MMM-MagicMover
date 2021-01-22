@@ -1,4 +1,4 @@
-/* MagicMover - Timetable for MagicMover Module */
+/* MagicMover - Prevent screen burn-in for MagicMirror */
 
 /* Magic Mirror
  * Module: MMM-MagicMover
@@ -21,34 +21,11 @@ Module.register('MMM-MagicMover', {
   // Define start sequence.
   start: function () {
     Log.info('Starting module: ' + this.name);
+    this.timers = [];
   },
 
-  mover: function () {
-    var that = this,
-      selecors =
-        '.region.top.bar,' +
-        '.region.upper.third, .region.middle.center, .region.lower.third,' +
-        '.region.bottom.bar';
-
-    document.querySelectorAll(selecors).forEach((element) => {
-      element.classList.add('magic-mover');
-
-      var thisTimer = that.config.updateInterval + Math.ceil(Math.random() * (10000 - 1) + 1);
-
-      setInterval(function () {
-        var coords = that.randomizer();
-        element.style.transform = 'translate(' + coords.x + 'px,' + coords.y + 'px)';
-      }, thisTimer);
-    });
-  },
-
-  remover: function () {
-    const el = document.querySelector('.magic-mover');
-    el.classList.remove('magic-mover');
-  },
-
-  randomizer: function () {
-    var coords = [],
+  magicRandomizer: function () {
+    const coords = {},
       min = ~(this.config.maxMove / 2) + 1,
       max = this.config.maxMove / 2;
 
@@ -58,22 +35,55 @@ Module.register('MMM-MagicMover', {
     return coords;
   },
 
+  magicMover: function () {
+    const that = this,
+      selecors =
+        '.region.top.bar, .region.upper.third, ' +
+        '.region.middle.center, ' +
+        '.region.lower.third, .region.bottom.bar';
+
+    that.timers = [];
+
+    document.querySelectorAll(selecors).forEach((el) => {
+      el.classList.add('magic-mover');
+
+      const thisTimer = that.config.updateInterval + Math.ceil(Math.random() * (10000 - 1) + 1);
+
+      that.timers.push(
+        setInterval(function () {
+          const coords = that.magicRandomizer();
+          el.style.transform = 'translate(' + coords.x + 'px,' + coords.y + 'px)';
+        }, thisTimer)
+      );
+    });
+  },
+
+  magicRemover: function () {
+    document.querySelectorAll('.magic-mover').forEach((el) => {
+      el.classList.remove('magic-mover');
+    });
+
+    for (let i of this.timers) {
+      clearInterval(i);
+    }
+  },
+
   notificationReceived: function (notification, payload, sender) {
     switch (notification) {
       case 'DOM_OBJECTS_CREATED':
-        this.mover();
+        this.magicMover();
         break;
       case 'MAGIC_MOVER_ON':
-        this.mover();
+        this.magicMover();
         break;
       case 'MAGIC_MOVER_OFF':
-        this.remover();
+        this.magicRemover();
         break;
     }
   },
 
   getDom: function () {
-    var wrapper = document.createElement('div');
+    const wrapper = document.createElement('div');
     return wrapper;
   },
 });
