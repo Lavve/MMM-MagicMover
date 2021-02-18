@@ -37,14 +37,14 @@ Module.register('MMM-MagicMover', {
   },
 
   magicMover: function () {
-    const that = this,
-      selectors = [
-        '.region.top.bar',
-        '.region.upper.third',
-        '.region.middle.center',
-        '.region.lower.third',
-        '.region.bottom.bar',
-      ];
+    const that = this;
+    let selectors = [
+      '.region.top.bar',
+      '.region.upper.third',
+      '.region.middle.center',
+      '.region.lower.third',
+      '.region.bottom.bar',
+    ];
     // selecors =
     //   '.region.top.bar, .region.upper.third, ' +
     //   '.region.middle.center, ' +
