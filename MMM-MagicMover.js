@@ -10,7 +10,7 @@ Module.register('MMM-MagicMover', {
   // Define module defaults
   defaults: {
     updateInterval: 60 * 1000,
-    ignoredRegions: ['.region.lower.third', '.region.bottom.bar'],
+    ignoredRegions: [],
     maxMove: 20,
   },
 
