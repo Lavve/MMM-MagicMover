@@ -37,20 +37,15 @@ Module.register('MMM-MagicMover', {
   },
 
   magicMover: function () {
-    const that = this;
-    let selectors = [
-      '.region.top.bar',
-      '.region.upper.third',
-      '.region.middle.center',
-      '.region.lower.third',
-      '.region.bottom.bar',
-    ];
-    // selecors =
-    //   '.region.top.bar, .region.upper.third, ' +
-    //   '.region.middle.center, ' +
-    //   '.region.lower.third, .region.bottom.bar';
-
-    selectors = selectors.filter((item) => !this.config.ignoredRegions.includes(item));
+    const that = this,
+      allSelectors = [
+        '.region.top.bar',
+        '.region.upper.third',
+        '.region.middle.center',
+        '.region.lower.third',
+        '.region.bottom.bar',
+      ],
+      selectors = allSelectors.filter((item) => !that.config.ignoredRegions.includes(item));
 
     that.timers = [];
 
