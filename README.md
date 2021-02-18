@@ -18,6 +18,7 @@ git clone https://github.com/Lavve/MMM-MagicMover
   module: "MMM-MagicMover",
   config: {
     updateInterval: 60 * 1000,
+    ignoredRegions: [],
     maxMove: 20,
   }
 },
@@ -27,10 +28,11 @@ Note that `position` isn't used, and is obsolete even if added to config
 
 ## Configuration options
 
-| Configuration  | Default   | Description                                                             |
-| -------------- | --------- | ----------------------------------------------------------------------- |
-| updateInterval | `60*1000` | (int) Time in milliseconds before next movement                         |
-| maxMove        | `20`      | (int) Amount of pixels the container is moved based on default position |
+| Configuration  | Default   | Type | Description                                                                                                                                                                                                                                        |
+| -------------- | --------- | ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| updateInterval | `60*1000` | int  | Time in milliseconds before next movement                                                                                                                                                                                                          |
+| ignoredRegions | `[]`      | arr  | An array including the regions that shouldn't be affected by MMM-MagicMover.<br />Valid regions are:<br />`'.region.top.bar'`<br />`'.region.upper.third'`<br />`'.region.middle.center'`<br />`'.region.lower.third'`<br />`'.region.bottom.bar'` |
+| maxMove        | `20`      | int  | Amount of pixels the container is moved based on default position                                                                                                                                                                                  |
 
 ## Enable/disable module
 
