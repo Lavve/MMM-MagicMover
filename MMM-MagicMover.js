@@ -54,7 +54,7 @@ Module.register('MMM-MagicMover', {
 
     that.timers = [];
 
-    document.querySelectorAll(selecors.join(', ')).forEach((el) => {
+    document.querySelectorAll(selectors.join(', ')).forEach((el) => {
       el.classList.add('magic-mover');
 
       const thisTimer = that.config.updateInterval + Math.ceil(Math.random() * (10000 - 1) + 1);
