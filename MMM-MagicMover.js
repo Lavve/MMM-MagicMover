@@ -10,6 +10,7 @@ Module.register('MMM-MagicMover', {
   // Define module defaults
   defaults: {
     updateInterval: 60 * 1000,
+    ignoredRegions: ['.region.lower.third', '.region.bottom.bar'],
     maxMove: 20,
   },
 
@@ -37,14 +38,23 @@ Module.register('MMM-MagicMover', {
 
   magicMover: function () {
     const that = this,
-      selecors =
-        '.region.top.bar, .region.upper.third, ' +
-        '.region.middle.center, ' +
-        '.region.lower.third, .region.bottom.bar';
+      selectors = [
+        '.region.top.bar',
+        '.region.upper.third',
+        '.region.middle.center',
+        '.region.lower.third',
+        '.region.bottom.bar',
+      ];
+    // selecors =
+    //   '.region.top.bar, .region.upper.third, ' +
+    //   '.region.middle.center, ' +
+    //   '.region.lower.third, .region.bottom.bar';
+
+    selectors = selectors.filter((item) => !this.config.ignoredRegions.includes(item));
 
     that.timers = [];
 
-    document.querySelectorAll(selecors).forEach((el) => {
+    document.querySelectorAll(selecors.join(', ')).forEach((el) => {
       el.classList.add('magic-mover');
 
       const thisTimer = that.config.updateInterval + Math.ceil(Math.random() * (10000 - 1) + 1);
