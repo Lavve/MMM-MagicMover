@@ -23,8 +23,10 @@ Module.register('MMM-MagicMover', {
   start: function () {
     Log.info('Starting module: ' + this.name);
     this.timers = [];
+    this.isMoving = true;
   },
 
+  // Ranomize new position
   magicRandomizer: function () {
     const coords = {},
       min = ~(this.config.maxMove / 2) + 1,
@@ -36,43 +38,60 @@ Module.register('MMM-MagicMover', {
     return coords;
   },
 
+  // Move sections and start timer for each
   magicMover: function () {
-    const that = this,
-      allSelectors = [
-        '.region.top.bar',
-        '.region.upper.third',
-        '.region.middle.center',
-        '.region.lower.third',
-        '.region.bottom.bar',
-      ],
-      selectors = allSelectors.filter((item) => !that.config.ignoredRegions.includes(item));
+    this.isMoving = true;
+    this.selectors = [
+      '.region.top.bar',
+      '.region.upper.third',
+      '.region.middle.center',
+      '.region.lower.third',
+      '.region.bottom.bar',
+    ].filter((item) => !this.config.ignoredRegions.includes(item));
 
-    that.timers = [];
+    this.timers = [];
 
-    document.querySelectorAll(selectors.join(', ')).forEach((el) => {
+    document.querySelectorAll(this.selectors.join(', ')).forEach((el) => {
       el.classList.add('magic-mover');
 
-      const thisTimer = that.config.updateInterval + Math.ceil(Math.random() * (10000 - 1) + 1);
+      // Let's move them independently
+      const thisTimer =
+        this.config.updateInterval + Math.ceil(Math.random() * (10000 - 1) + 1);
 
-      that.timers.push(
-        setInterval(function () {
-          const coords = that.magicRandomizer();
-          el.style.transform = 'translate(' + coords.x + 'px,' + coords.y + 'px)';
+      this.timers.push(
+        setInterval(() => {
+          const coords = this.magicRandomizer();
+          el.style.transform =
+            'translate3d(0, 0, 0) translate(' +
+            coords.x +
+            'px,' +
+            coords.y +
+            'px)';
         }, thisTimer)
       );
     });
   },
 
+  // Remove all movements and stopp the timers
   magicRemover: function () {
+    this.isMoving = false;
     document.querySelectorAll('.magic-mover').forEach((el) => {
       el.classList.remove('magic-mover');
+      el.removeAttribute('style');
     });
 
     for (let i of this.timers) {
-      clearInterval(i);
+      clearInterval(this.timers[i]);
     }
+    this.timers = [];
   },
 
+  // Toggle movements
+  magicToggler: function () {
+    this[this.isMoving ? 'magicRemover' : 'magicMover']();
+  },
+
+  // Remotely start or stop movements
   notificationReceived: function (notification, payload, sender) {
     switch (notification) {
       case 'DOM_OBJECTS_CREATED':
@@ -83,6 +102,9 @@ Module.register('MMM-MagicMover', {
         break;
       case 'MAGIC_MOVER_OFF':
         this.magicRemover();
+        break;
+      case 'MAGIC_MOVER_TOGGLE':
+        this.magicToggler();
         break;
     }
   },

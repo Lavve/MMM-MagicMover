@@ -36,11 +36,12 @@ Note that `position` isn't used, and is obsolete even if added to config
 
 ## Enable/disable module
 
-To enable/disable MMM-MagicMover from other modules use the following code:
+To enable/disable/toggle MMM-MagicMover from other modules use the following code:
 
 ```javascript
 this.sendNotification('MAGIC_MOVER_ON', {});
 this.sendNotification('MAGIC_MOVER_OFF', {});
+this.sendNotification('MAGIC_MOVER_TOGGLE', {});
 ```
 
 ## Collaborate
