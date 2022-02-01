@@ -45,7 +45,7 @@ this.sendNotification('MAGIC_MOVER_TOGGLE', {});
 ```
 
 ## History
-* 1 February 2022: Changed to same names for regions as used in config.js
+* 1 February 2022: Changed to same names for regions as used in config.js. Also reduced default movement from 20px to 15px.
 * 6 December 2021: Bug fixes and imporovements. Added notification settings
 
 ## TODO
