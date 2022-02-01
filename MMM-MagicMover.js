@@ -11,7 +11,7 @@ Module.register('MMM-MagicMover', {
   defaults: {
     updateInterval: 60 * 1000,
     ignoredRegions: [],
-    maxMove: 20,
+    maxMove: 15,
   },
 
   // Define required styles.
@@ -41,19 +41,56 @@ Module.register('MMM-MagicMover', {
   // Move sections and start timer for each
   magicMover: function () {
     this.isMoving = true;
-    this.selectors = [
-      '.region.top.bar',
-      '.region.upper.third',
-      '.region.middle.center',
-      '.region.lower.third',
-      '.region.bottom.bar',
-    ].filter((item) => !this.config.ignoredRegions.includes(item));
+    const allRegions = [
+      'top_bar',
+      'top_left',
+      'top_center',
+      'top_right',
+      'upper_third',
+      'middle_center',
+      'lower_third',
+      'bottom_left',
+      'bottom_center',
+      'bottom_right',
+      'bottom_bar',
+      'fullscreen_above',
+      'fullscreen_below',
+    ];
+    const allAlerts = ['.ns-box', '.ns-alert'];
+
+    selectors = allRegions.map(
+      (region) => '.region.' + region.split('_').join('.')
+    );
+    selectors.push(...allAlerts);
+
+    const ignores = this.config.ignoredRegions.map((ignore) =>
+      ignore.charAt(0) !== '.'
+        ? '.region.' + ignore.split('_').join('.')
+        : ignore
+    );
+
+    this.selectors = selectors.filter((r) => !ignores.includes(r));
 
     this.timers = [];
 
     document.querySelectorAll(this.selectors.join(', ')).forEach((el) => {
-      el.classList.add('magic-mover');
+      // Fix for some regions
+      let translate = '';
+      if (
+        el.matches('.region.top.center') ||
+        el.matches('.region.bottom.center')
+      ) {
+        translate = ' translateX(-50%)';
+      }
+      if (
+        el.matches('.region.upper.third') ||
+        el.matches('.region.middle.center') ||
+        el.matches('.region.lower.third')
+      ) {
+        translate = ' translateY(-50%)';
+      }
 
+      el.classList.add('magic-mover');
       // Let's move them independently
       const thisTimer =
         this.config.updateInterval + Math.ceil(Math.random() * (10000 - 1) + 1);
@@ -66,7 +103,8 @@ Module.register('MMM-MagicMover', {
             coords.x +
             'px,' +
             coords.y +
-            'px)';
+            'px)' +
+            translate;
         }, thisTimer)
       );
     });
