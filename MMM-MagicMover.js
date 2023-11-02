@@ -1,6 +1,6 @@
-/* MagicMover - Prevent screen burn-in for MagicMirror */
+/* MagicMover - Prevent screen burn-in for MagicMirror² */
 
-/* Magic Mirror
+/* MagicMirror²
  * Module: MMM-MagicMover
  *
  * By Magnus Claesson https://github.com/Lavve
