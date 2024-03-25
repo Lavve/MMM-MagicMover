@@ -6,7 +6,7 @@ A module for [MagicMirror²](https://github.com/MagicMirrorOrg/MagicMirror) to p
 
 1. Clone repository into the `MagicMirror/modules/` folder.
 
-```
+```bash
 cd ~/MagicMirror/modules
 git clone https://github.com/Lavve/MMM-MagicMover
 ```
