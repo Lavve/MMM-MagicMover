@@ -2,6 +2,8 @@
 
 A module for [MagicMirror²](https://github.com/MagicMirrorOrg/MagicMirror) to prevent screen burn-in.
 
+![Screen Burn-In Symbolization](/img/screen-burn-in.png)
+
 ## Install
 
 1. Clone repository into the `MagicMirror/modules/` folder.
