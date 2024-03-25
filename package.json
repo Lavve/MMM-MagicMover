@@ -1,0 +1,22 @@
+{
+  "name": "mmm-magicmover",
+  "version": "1.0.0",
+  "description": "A module for MagicMirror² to prevent screen burn-in.",
+  "main": "MMM-MagicMover.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lavve/MMM-MagicMover.git"
+  },
+  "keywords": [
+    "MagicMirror",
+    "Screensaver",
+    "Burn-in",
+    "Mover",
+  ],
+  "author": "Lavve",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Lavve/MMM-MagicMover/issues"
+  },
+  "homepage": "https://github.com/Lavve/MMM-MagicMover#readme"
+}

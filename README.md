@@ -1,6 +1,6 @@
 # MMM-MagicMover
 
-A module for [MagicMirror²](https://github.com/MichMich/MagicMirror) to prevent screen burn-in.
+A module for [MagicMirror²](https://github.com/MagicMirrorOrg/MagicMirror) to prevent screen burn-in.
 
 ## Install
 
