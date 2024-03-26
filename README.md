@@ -60,6 +60,12 @@ this.sendNotification('MAGIC_MOVER_TOGGLE', {});
 
 Pull requests, translations and suggestions for improvements are more than welcome.
 
+### Developer commands
+
+- `npm ci` - Install devDependencies like ESLint.
+- `npm run lint` - Run linting and formatter checks.
+- `npm run lint:fix` - Fix linting and formatter issues.
+
 ## Donations
 
 [🍻 Buy me a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=SM9XRXUPPJM84&item_name=%40lavve+MagicMiror+Modules) if you like my modules! ❤️
