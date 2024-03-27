@@ -18,5 +18,16 @@
   "bugs": {
     "url": "https://github.com/Lavve/MMM-MagicMover/issues"
   },
-  "homepage": "https://github.com/Lavve/MMM-MagicMover#readme"
+  "homepage": "https://github.com/Lavve/MMM-MagicMover#readme",
+  "devDependencies": {
+    "@eslint/js": "^8.57.0",
+    "@stylistic/eslint-plugin": "^1.7.0",
+    "eslint": "^8.57.0",
+    "globals": "^15.0.0"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "npm run lint"
+  }
 }

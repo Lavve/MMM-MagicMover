@@ -1,7 +1,8 @@
-/* MagicMover - Prevent screen burn-in for MagicMirror² */
-
-/* MagicMirror²
+/*
+ * MagicMirror²
  * Module: MMM-MagicMover
+ *
+ * Prevent screen burn-in for MagicMirror².
  *
  * By Magnus Claesson https://github.com/Lavve
  * MIT Licensed.
@@ -13,42 +14,44 @@ Module.register('MMM-MagicMover', {
     maxMove: 15,
   },
 
-  getStyles: function () {
+  getStyles () {
     return [`${this.name}.css`];
   },
 
-  start: function () {
+  start () {
     Log.info(`Starting module: ${this.name}`);
   },
 
   // Randomized coordinates
-  magicRandomizer: function () {
+  magicRandomizer () {
     const min = ~(this.config.maxMove / 2) + 1;
     const max = this.config.maxMove / 2;
     return {
-      x: Math.ceil(Math.random() * (max - min) + min) + 'px',
-      y: Math.ceil(Math.random() * (max - min) + min) + 'px',
+      x: `${Math.ceil(Math.random() * (max - min) + min)}px`,
+      y: `${Math.ceil(Math.random() * (max - min) + min)}px`,
     };
   },
 
   // Check if extra translate style is needed
-  magicTranslate: function (el) {
+  magicTranslate (el) {
     return el.matches('.region.top.center') || el.matches('.region.bottom.center')
       ? 'translateX(-50%)'
       : el.matches('.region.upper.third') ||
-        el.matches('.region.middle.center') ||
-        el.matches('.region.lower.third')
-      ? 'translateY(-50%)'
-      : '';
+      el.matches('.region.middle.center') ||
+      el.matches('.region.lower.third')
+        ? 'translateY(-50%)'
+        : '';
   },
 
   // Get all movable regions
-  magicRegions: function () {
+  magicRegions () {
     const ignores = [
       ...['.region.top.bar', '.region.bottom.bar'],
-      ...this.config.ignoredRegions.map((ignore) =>
-        ignore.slice(0, 1) === '.' ? ignore : '.region.' + ignore.split('_').join('.')
-      ),
+      ...this.config.ignoredRegions.map(
+        (ignore) => (ignore.slice(0, 1) === '.'
+          ? ignore
+          : `.region.${ignore.split('_').join('.')}`)
+      )
     ];
 
     return [...document.querySelectorAll('.region', '.ns-box', '.ns-alert')]
@@ -57,7 +60,7 @@ Module.register('MMM-MagicMover', {
   },
 
   // Move regions and start timer for each
-  magicMover: function () {
+  magicMover () {
     document.querySelectorAll(this.magicRegions().join(', ')).forEach((el) => {
       el.classList.add('magic-mover');
       this.timers.push(
@@ -73,7 +76,7 @@ Module.register('MMM-MagicMover', {
   },
 
   // Remove all movements and stop all timers
-  magicRemover: function () {
+  magicRemover () {
     document.querySelectorAll('.magic-mover').forEach((el) => {
       el.removeAttribute('style');
       el.classList.remove('magic-mover');
@@ -86,7 +89,7 @@ Module.register('MMM-MagicMover', {
   },
 
   // Remotely start or stop movements
-  notificationReceived: function (notification, payload, sender) {
+  notificationReceived (notification) {
     switch (notification) {
       case 'DOM_OBJECTS_CREATED':
         this.timers = [];
@@ -99,7 +102,9 @@ Module.register('MMM-MagicMover', {
         this.magicRemover();
         break;
       case 'MAGIC_MOVER_TOGGLE':
-        this[this.isMoving ? 'magicRemover' : 'magicMover']();
+        this[this.isMoving
+          ? 'magicRemover'
+          : 'magicMover']();
         break;
     }
   },
