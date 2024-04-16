@@ -22,6 +22,7 @@ git clone https://github.com/Lavve/MMM-MagicMover
     updateInterval: 10 * 60 * 1000,
     ignoredRegions: [],
     maxMove: 15,
+    moveWholescreen: false,
   }
 },
 ```
@@ -35,6 +36,7 @@ git clone https://github.com/Lavve/MMM-MagicMover
 | updateInterval | `10 * 60 * 1000` | int  | Time in milliseconds before next movement |
 | ignoredRegions | `[]` | array | An array with regions that will *not* be affected by MMM-MagicMover. Possible values are the same used in [config.js](https://docs.magicmirror.builders/modules/configuration.html#module-configuration):<br /><br />`'top_bar'`, `'top_left'`, `'top_center'`, `'top_right'`, `'upper_third'`, `'middle_center'`, `'lower_third'`, `'bottom_left'`, `'bottom_center'`, `'bottom_right'`, `'bottom_bar'`, `'fullscreen_above'` and `'fullscreen_below'`.<br /><br />You can still use the class names for each region, like `'.region.top.center'`.<br /><br />Also the alert module modals are available for exluding:<br />`'.ns-box'` and `'.ns-alert'`. |
 | maxMove | `15` | int | Amount of pixels the container is moved based on default position |
+| moveWholescreen | 'false' | boolean | Move the whole display instead of moving each region independantly |
 
 ## Enable/disable/toggle MMM-MagicMover module
 

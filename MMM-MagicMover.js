@@ -12,6 +12,7 @@ Module.register('MMM-MagicMover', {
     updateInterval: 20 * 60 * 1000,
     ignoredRegions: [],
     maxMove: 15,
+    moveWholescreen: false,
   },
 
   getStyles () {
@@ -45,6 +46,8 @@ Module.register('MMM-MagicMover', {
 
   // Get all movable regions
   magicRegions () {
+    if (this.config.moveWholescreen) return ['body'];
+
     const ignores = [
       ...['.region.top.bar', '.region.bottom.bar'],
       ...this.config.ignoredRegions.map(
