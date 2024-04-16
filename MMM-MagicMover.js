@@ -46,6 +46,8 @@ Module.register('MMM-MagicMover', {
 
   // Get all movable regions
   magicRegions () {
+    if (this.config.moveWholescreen) return ['body'];
+
     const ignores = [
       ...['.region.top.bar', '.region.bottom.bar'],
       ...this.config.ignoredRegions.map(
@@ -62,36 +64,17 @@ Module.register('MMM-MagicMover', {
 
   // Move regions and start timer for each
   magicMover () {
-    if (this.config.moveWholescreen) {
-        // move all modules in same direction at the same time
-        document.querySelectorAll(this.magicRegions().join(', ')).forEach((el) => {
-          el.classList.add('magic-mover');
-        });
-
-        this.timers.push(
-          setInterval(() => {
-            const c = this.magicRandomizer();
-            document.querySelectorAll(this.magicRegions().join(', ')).forEach((el) => {
-              el.style.transform = `translate(${c.x}, ${
-                c.y
-              }) translate3d(0, 0, 0) ${this.magicTranslate(el)}`;
-            });
-          }, `${this.config.updateInterval}`)
-        );
-    } else {
-        // move modules in different directins at different times
-        document.querySelectorAll(this.magicRegions().join(', ')).forEach((el) => {
-          el.classList.add('magic-mover');
-          this.timers.push(
-            setInterval(() => {
-              const c = this.magicRandomizer();
-              el.style.transform = `translate(${c.x}, ${
-                c.y
-              }) translate3d(0, 0, 0) ${this.magicTranslate(el)}`;
-            }, `${this.config.updateInterval + Math.ceil(Math.random() * (10000 - 1) + 1)}`)
-          );
-        });
-    };
+    document.querySelectorAll(this.magicRegions().join(', ')).forEach((el) => {
+      el.classList.add('magic-mover');
+      this.timers.push(
+        setInterval(() => {
+          const c = this.magicRandomizer();
+          el.style.transform = `translate(${c.x}, ${
+            c.y
+          }) translate3d(0, 0, 0) ${this.magicTranslate(el)}`;
+        }, `${this.config.updateInterval + Math.ceil(Math.random() * (10000 - 1) + 1)}`)
+      );
+    });
     this.isMoving = !0;
   },
 
