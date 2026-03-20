@@ -1,6 +1,6 @@
 {
   "name": "mmm-magicmover",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A module for MagicMirror² to prevent screen burn-in.",
   "main": "MMM-MagicMover.js",
   "repository": {
@@ -20,10 +20,10 @@
   },
   "homepage": "https://github.com/Lavve/MMM-MagicMover#readme",
   "devDependencies": {
-    "@eslint/js": "^8.57.0",
-    "@stylistic/eslint-plugin": "^1.7.0",
-    "eslint": "^8.57.0",
-    "globals": "^15.0.0"
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "eslint": "^10.0.3",
+    "globals": "^17.4.0"
   },
   "scripts": {
     "lint": "eslint .",
